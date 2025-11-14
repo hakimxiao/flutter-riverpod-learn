@@ -4,11 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_learn/providers.dart';
 import 'package:riverpod_learn/second_page.dart';
 
-class MainPage extends ConsumerWidget {
+class MainPage extends ConsumerStatefulWidget {
   const MainPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends ConsumerState<MainPage> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Main Page')),
       body: Center(
