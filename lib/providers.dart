@@ -1,5 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
-final nameProvider = Provider((ref) => "Abu Solihin alhakim");
+final counterProvider = StateProvider.autoDispose((ref) => 0);
 
-final greetingProvider = Provider((ref) => "Hello ${ref.watch(nameProvider)}");
+
+// ** AUTO DISPOSE **
+// .autoDispose => Ketika kita keluar dari halaman yang menggunakan provider ini, maka provider 
+//                 ini akan di dispose atau di bersihkan dari memory. Sehingga mulai dari 0 lagi
+
+// ** MANUAL DISPOSE **
+// ref.invalidate(counter) => ini adalah cara untuk membersihkan state dengan manual. contoh implementasi
+//                            ada di second_page bagian (A1)

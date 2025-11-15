@@ -20,10 +20,7 @@ class _MainPageState extends ConsumerState<MainPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              ref.watch(nameProvider),
-              style: GoogleFonts.poppins(fontSize: 25),
-            ),
+            Text("Hello, Riverpod!", style: GoogleFonts.poppins(fontSize: 25)),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

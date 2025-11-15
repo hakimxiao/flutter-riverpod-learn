@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod_learn/providers.dart';
 
-class SecondPage extends ConsumerStatefulWidget {
+class SecondPage extends ConsumerWidget {
   const SecondPage({super.key});
 
   @override
-  ConsumerState<SecondPage> createState() => _SecondPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    int number = ref.watch(counterProvider);
 
-class _SecondPageState extends ConsumerState<SecondPage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Second Page')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              ref.watch(greetingProvider),
-              style: GoogleFonts.poppins(fontSize: 25),
+            Text('$number', style: TextStyle(fontSize: 30)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // read - notifier : notifier tidak hanya merubah nilai tapi juga memberi sinyal
+                    //                   jika state berubah, sehingga widget di build ulang. Read
+                    //                   kita membaca dahulu kemudian increment.
+                    ref.read(counterProvider.notifier).state--;
+                  },
+                  child: Icon(Icons.remove),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    ref.read(counterProvider.notifier).state++;
+                  },
+                  child: Icon(Icons.add),
+                ),
+              ],
             ),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                // ** -> MANUAL DISPOSE (A1)
+                ref.invalidate(counterProvider);
               },
-              child: const Text('Back to Main Page'),
+              child: Icon(Icons.refresh),
             ),
           ],
         ),
